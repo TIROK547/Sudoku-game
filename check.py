@@ -1,17 +1,3 @@
-from pprint import pprint
-
-game = [
-    [0, 2, 0, 6, 0, 8, 0, 0, 0],
-    [5, 8, 0, 0, 0, 9, 7, 0, 0],
-    [0, 0, 0, 0, 4, 0, 0, 0, 0],
-    [3, 7, 0, 0, 0, 0, 5, 0, 0],
-    [6, 0, 0, 0, 0, 0, 0, 0, 4],
-    [0, 0, 8, 0, 0, 0, 0, 1, 3],
-    [0, 0, 0, 0, 2, 0, 0, 0, 0],
-    [0, 0, 9, 8, 0, 0, 0, 3, 6],
-    [0, 0, 0, 3, 0, 6, 0, 9, 0]
-]
-
 def check_game(arr, user_choice):
     row, col, num = user_choice
     message = ""
@@ -38,5 +24,3 @@ def check_game(arr, user_choice):
                 game_case = True
                 
     return [arr, game_case, message, user_choice]
-
-pprint(check_game(game, [8, 0, 1])) 
