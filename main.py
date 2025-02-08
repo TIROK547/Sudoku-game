@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # from print import*
 # from check import*
 import random
@@ -59,3 +60,6 @@ while True:
    except ValueError:
        print("please just enter numbers")
        
+=======
+print([],[1,3,6],None)
+>>>>>>> a1997d30fee55145b34bdbd6b4fd7321075b91b9
