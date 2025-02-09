@@ -1,6 +1,13 @@
-# from print import*
-# from check import*
+from print import*
+from check import*
 import random
+import json
+import os
+file_path = os.path.join("datas", "data.json")
+with open(file_path, "r", encoding="utf-8") as file:
+    data= json.load(file)
+
+
 
 easy_sudoku_boards = [[5, 3, 0, 0, 7, 0, 0, 0, 0],
                       [6, 0, 0, 1, 9, 5, 0, 0, 0],
@@ -28,13 +35,21 @@ elif input_1 == 3:
 else:
     print("invalid number please enter another numer: ")
 
-def print_board(board):
-    print(board)
+def print_board(sudoku):
+    print_game(sudoku)
+
+    
+    
+    
+    
+    print()
 
 
 
 def check_board(board, row, col, num):
-    print (board)
+    return check_game(sudoku, row, col, num)
+    
+    print ()
 
 
 while True:
