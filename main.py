@@ -4,6 +4,8 @@ import time
 import random
 import json
 import os
+
+
 file_path = os.path.join("datas", "data.json")
 with open(file_path, "r", encoding="utf-8") as file:
     data= json.load(file)
@@ -38,19 +40,17 @@ original_board = [row[:] for row in sudoku]
 incorrect_moves = set()
 
 def print_board(board):
-    print_game(board)
+   
 
 
 
     print()
 
-# print("game board: ")
-# print_board(sudoku)
-
 def check_board(board, row, col, num):
-    check_game(board, row, col, num)
-    
-    print ()
+   
+   
+   
+   print()
 
 def is_game_complete(board):
     return all(0 not in row for row in board)
