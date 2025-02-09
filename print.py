@@ -17,34 +17,27 @@ mode_1= [
 #RESET = '\033[0m'
 
 
-arr = [0, 0, None]
+user_choice = [0, 0, None]
 #[],[1,3,6],None
 #function:
-def print_game(game_mode, arr, game_case):
+def print_game(game_board,game_case,message,user_choice):
       for i in range(9) :
            if i % 3 == 0 and i != 0:
                   print("_" * 21) 
            for j in range(9):
                if j % 3 == 0 and j != 0 :
                   print("|", end = "")
-               if game_mode[i][j] != 0:
-                        print(game_mode[i][j], end =" ")
+               if game_board[i][j] != 0:
+                        print(game_board[i][j], end =" ")
+                
                else:
                         print(".", end = " ")     
            print() 
 
            if game_case == True:
-                 arr[i][j] == num
+                 user_choice[i][j] == num
                  print('\033[0m', '\033[33m', num, '\033[0m')
            elif game_case == False:
-                arr[i][j] == num
-                print('\033[0m', '\033[31m', num, '\033[0m') 
-                
-            
-
-
-
-           
-
-                     
-print_game(mode_1)
+                user_choice[i][j] == num
+                print('\033[0m', '\033[31m', num, '\033[0m')                  
+print_game(mode_1,None,"congrats",[0,2,1])
