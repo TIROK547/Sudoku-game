@@ -7,8 +7,6 @@ file_path = os.path.join("datas", "data.json")
 with open(file_path, "r", encoding="utf-8") as file:
     data= json.load(file)
 
-
-
 easy_sudoku_boards = [[5, 3, 0, 0, 7, 0, 0, 0, 0],
                       [6, 0, 0, 1, 9, 5, 0, 0, 0],
                       [0, 9, 8, 0, 0, 0, 0, 6, 0],
@@ -25,7 +23,6 @@ hard_sudoku_boards = []
 
 input_1 = int (input("please choose dificulties of the game from 1 to 3 (easy, medium, hard)"))
 
-
 if input_1 == 1:
     sudoku = random.choice(easy_sudoku_boards)
 elif input_1 == 2:
@@ -35,19 +32,18 @@ elif input_1 == 3:
 else:
     print("invalid number please enter another numer: ")
 
-def print_board(sudoku):
-    print_game(sudoku)
+def print_board(board):
+    print_game(board)
 
-    
-    
-    
-    
+
+
     print()
 
-
+print("game board: ")
+print_board(sudoku)
 
 def check_board(board, row, col, num):
-    return check_game(sudoku, row, col, num)
+    check_game(board, row, col, num)
     
     print ()
 
@@ -58,7 +54,7 @@ while True:
         col = int(input("please enter the column number between ( 1 to 9 ): "))
         num = int(input("please enter the value number between ( 1 to 9 ): "))
 
-        if not (0 <= row < 9 and 0 <= col < 9 and 1 <= num <= 9):
+        if not (1 <= row < 10 and 1 <= col < 10 and 1 <= num <= 9):
             print("please enter a valid number: ")
             continue
         if sudoku[row][col] != 0:
