@@ -7,7 +7,6 @@ import json
 import os
 
 
-
 difficulty_levels = ["easy", "medium", "hard"]
 while True:
     input_difficulty = input("please enter dificulty of the game from (easy, medium, hard)").strip()
@@ -21,8 +20,6 @@ original_board = [row[:] for row in sudoku]
 
 incorrect_moves = set()
 
-
-
 def is_game_complete(board):
     return all(0 not in row for row in board)
 
@@ -32,6 +29,7 @@ print_game(sudoku, original_board, incorrect_moves)
 correct_moves = 0 
 wrong_moves = 0
 start_time = time.time()
+
 
 while not is_game_complete(sudoku):
    
@@ -69,9 +67,9 @@ while not is_game_complete(sudoku):
         
         print_game(sudoku, original_board, incorrect_moves)
 
-      
    except ValueError:
        print("please just enter numbers")
+       
        
 end_time = time.time()
 total_time = round(end_time - start_time, 2)
