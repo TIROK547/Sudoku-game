@@ -21,7 +21,7 @@ def is_game_complete(board):
     return all(0 not in row for row in board)
 
 print("**game started**")
-print_game (sudoku, True, "**game started**")
+print_game (sudoku, True, "**game started**", None, [[],[]])
 
 correct_moves = 0 
 wrong_moves = 0
@@ -65,9 +65,7 @@ while not is_game_complete(sudoku):
 #            print("invalid change, this number is repetitive")
             flag = False
         
-        
         move_saving.append([row, col])
-        
         resault = check_game(sudoku, [row, col, num], move_saving)
         check_first_output = resault[0]
         check_second_output = resault[1]
