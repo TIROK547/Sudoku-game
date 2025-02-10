@@ -38,9 +38,12 @@ def print_game(game_board,game_case,message,user_choice):
                         print('\033[0m'+ '\033[33m'+ str(num) +'\033[0m', end="")
                   elif game_case is False:  
                         print('\033[0m' + '\033[31m' + str(num) + '\033[0m', end="")
+                  elif game_case is True:
+                       print('\033[0m'+ '\033[33m'+ str(num) +'\033[0m', end="")
+                       break     
                else:  
                     print(game_board[i][j] if game_board[i][j] != 0 else ".", end=" ")    
            print()
 
 
-print_game(mode_1, None, "congarts", [0,8,8])
+print_game(mode_1, False, "congarts", [0,8,8])
