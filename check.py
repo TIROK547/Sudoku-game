@@ -16,7 +16,7 @@ def check_game(arr, user_choice):
     inflicted_loc = [[],[]]
     row, col, num = user_choice
     message = ""
-    game_case = None
+    game_case = True
     if num in arr[row]:
         message = "Number already in this row"
         game_case = False
@@ -42,10 +42,6 @@ def check_game(arr, user_choice):
                 message = "Number already in this box"
                 game_case = False
                 break
-    
-    if all(all(cell != 0 for cell in row) for row in arr):
-                message = "Congratulations! You won!"
-                game_case = True
                 
     return (arr, game_case, message, user_choice,inflicted_loc)
 #x = check_game(easy_sudoku_boards,[2,0,6])
