@@ -13,18 +13,21 @@ easy_sudoku_boards = [[5, 3, 0, 0, 7, 0, 0, 0, 0],
 
 
 def check_game(arr, user_choice):
+    inflicted_loc = []
     row, col, num = user_choice
     message = ""
     game_case = None
-    if arr[row][col] != 0:
-        message = "This cell is already filled"
-        game_case = False
     if num in arr[row]:
         message = "Number already in this row"
         game_case = False
+        inflicted_loc.append(arr.index(arr[row]))
+        inflicted_loc.append(arr[row].index(num))
+        print(inflicted_loc)
     if num in [arr[i][col] for i in range(9)]:
         message = "Number already in this column"
         game_case = False
+        inflicted_loc.append(arr.index(arr[row]))
+        inflicted_loc.append(arr[row].index(num))
     start_row, start_col = (row // 3) * 3, (col // 3) * 3
     for i in range(3):
         for j in range(3):
@@ -38,5 +41,5 @@ def check_game(arr, user_choice):
                 game_case = True
                 
     return (arr, game_case, message, user_choice)
-x = check_game(easy_sudoku_boards,[0,2,1])
+x = check_game(easy_sudoku_boards,[0,0,1])
 print_game(x[0],x[1],x[2],x[3])
