@@ -24,13 +24,13 @@ medium_sudoku_boards = []
 
 hard_sudoku_boards = []
 
-input_1 = int (input("please choose dificulties of the game from 1 to 3 (easy, medium, hard)"))
+input_difficulty = int (input("please choose dificulties of the game from 1 to 3 (easy, medium, hard)"))
 
-if input_1 == 1:
+if input_difficulty == 1:
     sudoku = random.choice(easy_sudoku_boards)
-elif input_1 == 2:
+elif input_difficulty == 2:
     sudoku = random.choice(medium_sudoku_boards)
-elif input_1 == 3:
+elif input_difficulty == 3:
     sudoku = random.choice(hard_sudoku_boards)
 else:
     print("invalid number please enter another numer: ")
@@ -39,20 +39,6 @@ original_board = [row[:] for row in sudoku]
 
 incorrect_moves = set()
 
-# def print_game(sudoku, original_board, incorrect_moves):
-   
-
-
-
-#     print()
-
-
-
-# def check_game(board, row, col, num):
-   
-   
-   
-#    print()
 
 def is_game_complete(board):
     return all(0 not in row for row in board)
@@ -87,7 +73,7 @@ while not is_game_complete(sudoku):
                 incorrect_moves.discard((row, col))
                 print("this box has been cleared")
 
-        elif check_game(sudoku, row, col, num):
+        elif check_game(sudoku, [row, col, num]):
             sudoku[row][col] = num
             correct_moves += 1
             incorrect_moves.discard((row, col))
