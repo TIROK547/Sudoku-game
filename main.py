@@ -1,43 +1,26 @@
 from print import*
 from check import*
+from boards import random_board
 import time
 import random
 import json
 import os
 
 
-file_path = os.path.join("datas", "data.json")
-with open(file_path, "r", encoding="utf-8") as file:
-    data= json.load(file)
 
-easy_sudoku_boards = [[5, 3, 0, 0, 7, 0, 0, 0, 0],
-                      [6, 0, 0, 1, 9, 5, 0, 0, 0],
-                      [0, 9, 8, 0, 0, 0, 0, 6, 0],
-                      [8, 0, 0, 0, 6, 0, 0, 0, 3],
-                      [4, 0, 0, 8, 0, 3, 0, 0, 1],
-                      [7, 0, 0, 0, 2, 0, 0, 0, 6],
-                      [0, 6, 0, 0, 0, 0, 2, 8, 0],
-                      [0, 0, 0, 4, 1, 9, 0, 0, 5],
-                      [0, 0, 0, 0, 8, 0, 0, 7, 9]]
-medium_sudoku_boards = []
+difficulty_levels = ["easy", "medium", "hard"]
+while True:
+    input_difficulty = input("please enter dificulty of the game from (easy, medium, hard)").strip()
+    if input_difficulty in difficulty_levels:
+        break
+    print("please input a valid choice!!")
 
-
-hard_sudoku_boards = []
-
-input_difficulty = int (input("please choose dificulties of the game from 1 to 3 (easy, medium, hard)"))
-
-if input_difficulty == 1:
-    sudoku = random.choice(easy_sudoku_boards)
-elif input_difficulty == 2:
-    sudoku = random.choice(medium_sudoku_boards)
-elif input_difficulty == 3:
-    sudoku = random.choice(hard_sudoku_boards)
-else:
-    print("invalid number please enter another numer: ")
+sudoku = random_board(input_difficulty)
 
 original_board = [row[:] for row in sudoku]
 
 incorrect_moves = set()
+
 
 
 def is_game_complete(board):
@@ -73,7 +56,7 @@ while not is_game_complete(sudoku):
                 incorrect_moves.discard((row, col))
                 print("this box has been cleared")
 
-        elif check_game(sudoku, [row, col, num]):
+        elif check_game(sudoku, row, col, num):
             sudoku[row][col] = num
             correct_moves += 1
             incorrect_moves.discard((row, col))
