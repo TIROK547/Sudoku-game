@@ -20,7 +20,7 @@ mode_1= [
 
 user_choice = [0, 0, None]
 
-def print_game(game_board,game_case,message,user_choice):
+def print_game(game_board,game_case,message,user_choice, inflicted_loc):
       row , col, num = user_choice
       game_board[row][col] = num
 
