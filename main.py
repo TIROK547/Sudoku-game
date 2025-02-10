@@ -3,9 +3,6 @@ from check import*
 from boards import random_board
 import time
 import random
-import json
-import os
-
 
 difficulty_levels = ["easy", "medium", "hard"]
 while True:
@@ -54,7 +51,7 @@ while not is_game_complete(sudoku):
                 incorrect_moves.discard((row, col))
                 print("this box has been cleared")
 
-        elif check_game(sudoku, row, col, num):
+        elif check_game(sudoku, [row, col, num]):
             sudoku[row][col] = num
             correct_moves += 1
             incorrect_moves.discard((row, col))
