@@ -2,7 +2,7 @@ from print import*
 from check import*
 from boards import random_board
 import time
-import random
+# import random
 
 difficulty_levels = ["easy", "medium", "hard"]
 while True:
@@ -15,17 +15,18 @@ sudoku = random_board(input_difficulty)
 
 original_board = [row[:] for row in sudoku]
 
-incorrect_moves = set()
+# incorrect_moves = set()
 
 def is_game_complete(board):
     return all(0 not in row for row in board)
 
 print("**game started**")
-print_game(sudoku, original_board, incorrect_moves)
+print_game (sudoku, True, "**game started**")
 
 correct_moves = 0 
 wrong_moves = 0
 start_time = time.time()
+move_saving = []
 
 
 while not is_game_complete(sudoku):
@@ -48,22 +49,37 @@ while not is_game_complete(sudoku):
                 print("this box is already empty!!")
             else:
                 sudoku[row][col] = 0
-                incorrect_moves.discard((row, col))
+#                incorrect_moves.discard((row, col))
                 print("this box has been cleared")
 
         elif check_game(sudoku, [row, col, num]):
             sudoku[row][col] = num
             correct_moves += 1
-            incorrect_moves.discard((row, col))
-            print("changes accepted")
+#            incorrect_moves.discard((row, col))
+#            print("changes accepted")
+            flag = True
         else:
             wrong_moves += 1
             sudoku[row][col] = num
-            incorrect_moves.add((row, col))
-            print("invalid change, this number is repetitive")
+#            incorrect_moves.add((row, col))
+#            print("invalid change, this number is repetitive")
+            flag = False
         
-        print_game(sudoku, original_board, incorrect_moves)
-
+        
+        move_saving.append([row, col])
+        
+        resault = check_game(sudoku, [row, col, num], move_saving)
+        check_first_output = resault[0]
+        check_second_output = resault[1]
+        check_third_output = resault[2]
+        check_fourth_output = resault[3]
+        check_fifth_output = resault[4]
+        
+        # print_game(sudoku, original_board, incorrect_moves,[row, col, num])
+        
+        print_game (sudoku, flag, check_third_output, [row,col, num], check_fourth_output)
+   
+   
    except ValueError:
        print("please just enter numbers")
        
@@ -71,7 +87,7 @@ while not is_game_complete(sudoku):
 end_time = time.time()
 total_time = round(end_time - start_time, 2)
 
-print("**congratulations, you won**")
+#print("**congratulations, you won**")
 print(f"correct moves: {correct_moves}")
 print(f"wrong movese: {wrong_moves}")
 print(f"gaming time: {total_time} sec")
