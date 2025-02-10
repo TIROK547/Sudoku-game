@@ -49,6 +49,20 @@ original_board = [row[:] for row in sudoku]
 
 incorrect_moves = set()
 
+# def print_game(sudoku, original_board, incorrect_moves):
+   
+
+
+
+#     print()
+
+
+
+# def check_game(board, row, col, num):
+   
+   
+   
+#    print()
 
 def is_game_complete(board):
     return all(0 not in row for row in board)
@@ -83,7 +97,7 @@ while not is_game_complete(sudoku):
                 incorrect_moves.discard((row, col))
                 print("this box has been cleared")
 
-        elif check_game(sudoku, [row, col, num]):
+        elif check_game(sudoku, row, col, num):
             sudoku[row][col] = num
             correct_moves += 1
             incorrect_moves.discard((row, col))
