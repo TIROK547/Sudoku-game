@@ -39,24 +39,26 @@ original_board = [row[:] for row in sudoku]
 
 incorrect_moves = set()
 
-def print_game(board):
+# def print_game(sudoku, original_board, incorrect_moves):
    
 
 
 
-    print()
+#     print()
 
-def check_game(board, row, col, num):
+
+
+# def check_game(board, row, col, num):
    
    
    
-   print()
+#    print()
 
 def is_game_complete(board):
     return all(0 not in row for row in board)
 
 print("**game started**")
-print_game(sudoku)
+print_game(sudoku, original_board, incorrect_moves)
 
 correct_moves = 0 
 wrong_moves = 0
@@ -96,7 +98,7 @@ while not is_game_complete(sudoku):
             incorrect_moves.add((row, col))
             print("invalid change, this number is repetitive")
         
-        print_game(sudoku)
+        print_game(sudoku, original_board, incorrect_moves)
 
       
    except ValueError:
