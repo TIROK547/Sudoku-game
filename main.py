@@ -7,34 +7,6 @@ import json
 import os
 
 
-# file_path = os.path.join("datas", "data.json")
-# with open(file_path, "r", encoding="utf-8") as file:
-#     data= json.load(file)
-
-# easy_sudoku_boards = [[5, 3, 0, 0, 7, 0, 0, 0, 0],
-#                       [6, 0, 0, 1, 9, 5, 0, 0, 0],
-#                       [0, 9, 8, 0, 0, 0, 0, 6, 0],
-#                       [8, 0, 0, 0, 6, 0, 0, 0, 3],
-#                       [4, 0, 0, 8, 0, 3, 0, 0, 1],
-#                       [7, 0, 0, 0, 2, 0, 0, 0, 6],
-#                       [0, 6, 0, 0, 0, 0, 2, 8, 0],
-#                       [0, 0, 0, 4, 1, 9, 0, 0, 5],
-#                       [0, 0, 0, 0, 8, 0, 0, 7, 9]]
-# medium_sudoku_boards = []
-
-
-# hard_sudoku_boards = []
-
-# input_difficulty_levels = int (input("please choose dificulties of the game from 1 to 3 (easy, medium, hard)"))
-
-# if input_difficulty == 1:
-#     sudoku = random.choice(easy_sudoku_boards)
-# elif input_difficulty == 2:
-#     sudoku = random.choice(medium_sudoku_boards)
-# elif input_difficulty == 3:
-#     sudoku = random.choice(hard_sudoku_boards)
-# else:
-#     print("invalid number please enter another numer: ")
 
 difficulty_levels = ["easy", "medium", "hard"]
 while True:
@@ -49,20 +21,7 @@ original_board = [row[:] for row in sudoku]
 
 incorrect_moves = set()
 
-# def print_game(sudoku, original_board, incorrect_moves):
-   
 
-
-
-#     print()
-
-
-
-# def check_game(board, row, col, num):
-   
-   
-   
-#    print()
 
 def is_game_complete(board):
     return all(0 not in row for row in board)
