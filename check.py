@@ -6,13 +6,13 @@ def check_game(arr, user_choice):
     if num in arr[row]:
         game_case = False
         inflicted_loc[0] = [row, arr[row].index(num)]
-        message = f"The number is already in this row!{str(inflicted_loc[0][0]+1 )},{str(inflicted_loc[0][1]+1)}"
+        message = f"⚠️ Oops! {num} is already in row {inflicted_loc[0][0]+1}, column {inflicted_loc[0][1]+1}.🔄 Try again! "
     
     if num in [arr[i][col] for i in range(9)]:
         game_case = False
         inflicted_loc[1] = [[i, col] for i in range(9) if arr[i][col] == num]
-        message = f"The number is already in this column!{str(inflicted_loc[1][0]+1 )},{str(inflicted_loc[1][1]+1)}"
-    
+        message = f"🚫 Not allowed! {num} is already in column {inflicted_loc[1][0][0] + 1}, row {inflicted_loc[1][0][1] + 1}.🔢 Pick another number! "
+
     start_row, start_col = (row // 3) * 3, (col // 3) * 3
     for i in range(3):
         for j in range(3):
@@ -20,9 +20,9 @@ def check_game(arr, user_choice):
             if arr[r][c] == num:
                 game_case = False
                 inflicted_loc[2] = [r, c]
-                message = f"The number is already in this 3x3 box! {str(inflicted_loc[2][0]+1 )},{str(inflicted_loc[2][1]+1)}"
+                message = f"❌ Too bad! {num} is already in this 3×3 box (row {inflicted_loc[2][0]+1}, column {inflicted_loc[2][1]+1}).🎯 Try a different spot! "
 
     if game_case:
-        message = "Nice! What's your next move?:)"
+        message = " Great choice! Keep going! 🚀 What's your next move?"
 
     return arr, game_case, f"{message}\n", user_choice, inflicted_loc
