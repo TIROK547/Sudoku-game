@@ -1,53 +1,30 @@
-from pprint import pprint
+convert_num = lambda num: "\033[33m.\033[0m" if num == 0 else f"\033[33m{str(num)}\033[0m"
+def print_game(game_board, game_case, message, user_choice, inflicted_loc,original_board):
+    
+    row, col, num = user_choice if user_choice else (-1, -1, -1)
 
-mode_1 = [            [5, 3, 0, 0, 7, 0, 0, 0, 0],
-                      [6, 0, 0, 1, 9, 5, 0, 0, 0],
-                      [0, 9, 8, 0, 0, 0, 0, 6, 0],
-                      [8, 0, 0, 0, 6, 0, 0, 0, 3],
-                      [4, 0, 0, 8, 0, 3, 0, 0, 1],
-                      [7, 0, 0, 0, 2, 0, 0, 0, 6],
-                      [0, 6, 0, 0, 0, 0, 2, 8, 0],
-                      [0, 0, 0, 4, 1, 9, 0, 0, 5],
-                      [0, 0, 0, 0, 8, 0, 0, 7, 9]]
-
-#color_codes
-#YELLOW = '\033[33m'
-#RED = '\033[31m'
-#WHITE = '\033[37m'
-#RESET = '\033[0m'
-
-
-inflicted_loc = [[],[]]
-
-def print_game(game_board,game_case,message ,user_choice,inflicted_loc):
-    row , col, num = user_choice
-    game_board[row][col] = num
-    for i in range(9) :
+    print("\033[94m------\033[31m#\033[94m\033[0mSUD-OKU\033[94m\033[31m#\033[94m------\033[0m")
+    for i in range(9):
         if i % 3 == 0 and i != 0:
-            print("_" * 21) 
+            print("\033[94m------#-------#------\033[0m")
         for j in range(9):
-            if j % 3 == 0 and j != 0 :
-                print("|", end = "")
-            #check this part idk what is wrong with it
-            if (i, j) in inflicted_loc and game_board[i][j] != 0:
-                print('\033[0m' + '\033[31m' + str(game_board[i][j]) + '\033[0m' + " ", end="")
+            if j % 3 == 0 and j != 0:
+                print("\033[94m|\033[0m", end=" ")
 
-            elif (i, j) == (row, col) :
-                if game_case is True:   
-                    print('\033[0m'+ '\033[33m'+ str(num) +'\033[0m' + " ", end="")
-                elif game_case is False:  
-                    print('\033[0m' + '\033[31m' + str(num) + '\033[0m'+" ", end="")
-                elif game_case is None:
-                    print('\033[0m'+ '\033[33m'+ str(num) +'\033[0m' + " ", end="")     
-            else:     
-                    print(game_board[i][j] if game_board[i][j] != 0 else ".", end=" ")    
+            if [i, j] in inflicted_loc and game_board[i][j] != 0:
+                print('\033[31m' + str(game_board[i][j]) + '\033[0m', end=" ")
+            #elif (i, j) == (row, col):
+            #    if game_case is True or game_case == None:
+            #        print('\033[33m' + str(num) + '\033[0m', end=" ")
+            #    elif game_case is False:
+            #        print('\033[31m' + str(num) + '\033[0m', end=" ")
+            else:
+                print(str(original_board[i][j]) if original_board[i][j] != 0 else convert_num(game_board[i][j]), end=" ")
+
         print()
+    
+    print("\033[94m------\033[31m*\033[94m-------\033[31m*\033[94m------\033[0m")
     if game_case is True or game_case is None:
-        print("\n"+message)
+        print("\n\033[94m" + message +"\033[0m")
     else:
-        print('\033[0m'+"\n" + '\033[31m'+message +'\033[0m')
-
-     
-
-
-print_game(mode_1, False,"wrong",[2,0,6], [[1,0],[2,7]])           
+        print("\n\033[31m" + message + '\033[0m')

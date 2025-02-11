@@ -1,91 +1,69 @@
-from print import*
-from check import*
+from print import print_game
+from check import check_game
 from boards import random_board
 import time
-# import random
 
 difficulty_levels = ["easy", "medium", "hard"]
+print("\033[32mWelcome ;D\033[0m ")
 while True:
-    input_difficulty = input("please enter dificulty of the game from (easy, medium, hard)").strip()
+    input_difficulty = input("Please enter the difficulty of the game (\033[92measy,\033[93m medium,\033[91m hard\033[0m) : ").strip()
     if input_difficulty in difficulty_levels:
         break
-    print("please input a valid choice!!")
+    print("Please input a valid choice!!")
 
 sudoku = random_board(input_difficulty)
-
-original_board = [row[:] for row in sudoku]
-
-# incorrect_moves = set()
+original_board = sudoku.copy()
 
 def is_game_complete(board):
     return all(0 not in row for row in board)
+print("\n \033[96m**Game started**\033[0m \n")
+print_game(sudoku, True, "Whats your first move?", None, [[], []],original_board)
 
-print("**game started**")
-print_game (sudoku, True, "**game started**", None, [[],[]])
 
-correct_moves = 0 
+correct_moves = 0
 wrong_moves = 0
 start_time = time.time()
 move_saving = []
 
-
 while not is_game_complete(sudoku):
-   
-   try:
-        row = int(input("please enter the row number between ( 1 to 9 ): ")) -1
-        col = int(input("please enter the column number between ( 1 to 9 ): ")) -1
-        num = int(input("please enter the value number between ( 1 to 9 ): "))
+    try:
+        row = int(input("Row \033[93m(1 to 9)\033[0m: ")) - 1
+        col = int(input("Column \033[93m(1 to 9)\033[0m: ")) - 1
+        num = int(input("Number \033[93m(1 to 9)\033[0m: "))
 
         if not (0 <= row < 9 and 0 <= col < 9 and 0 <= num <= 9):
-            print("please enter a valid number: ")
+            print("Please enter a valid number: ")
             continue
-        
+
         if original_board[row][col] != 0:
-            print("you can not change this value its from base board!!")
+            print("You cannot change this value; it's from the base board!!")
             continue
 
         if num == 0:
             if sudoku[row][col] == 0:
-                print("this box is already empty!!")
+                print("This box is already empty!!")
             else:
                 sudoku[row][col] = 0
-#                incorrect_moves.discard((row, col))
-                print("this box has been cleared")
+                print("This box has been cleared")
 
-        elif check_game(sudoku, [row, col, num]):
-            sudoku[row][col] = num
-            correct_moves += 1
-#            incorrect_moves.discard((row, col))
-#            print("changes accepted")
-            flag = True
         else:
-            wrong_moves += 1
-            sudoku[row][col] = num
-#            incorrect_moves.add((row, col))
-#            print("invalid change, this number is repetitive")
-            flag = False
-        
-        move_saving.append([row, col])
-        resault = check_game(sudoku, [row, col, num], move_saving)
-        check_first_output = resault[0]
-        check_second_output = resault[1]
-        check_third_output = resault[2]
-        check_fourth_output = resault[3]
-        check_fifth_output = resault[4]
-        
-        # print_game(sudoku, original_board, incorrect_moves,[row, col, num])
-        
-        print_game (sudoku, flag, check_third_output, [row,col, num], check_fourth_output)
-   
-   
-   except ValueError:
-       print("please just enter numbers")
-       
-       
+            result = check_game(sudoku, [row, col, num])
+            flag, message = result[1], result[2]
+            if flag:
+                sudoku[row][col] = num
+                correct_moves += 1
+            else:
+                wrong_moves += 1
+
+            move_saving.append([row, col])
+            print_game(sudoku, flag, message, [row, col, num], result[4],original_board)
+
+    except ValueError:
+        print("Please just enter numbers")
+
 end_time = time.time()
 total_time = round(end_time - start_time, 2)
 
-#print("**congratulations, you won**")
-print(f"correct moves: {correct_moves}")
-print(f"wrong movese: {wrong_moves}")
-print(f"gaming time: {total_time} sec")
+print(f"Correct moves: {correct_moves}")
+print(f"Wrong moves: {wrong_moves}")
+print(f"Gaming time: {total_time} sec")
