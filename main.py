@@ -1,69 +1,66 @@
 from print import print_game
 from check import check_game
-from boards import random_board
+from api import generate_sudoku
+import copy
 import time
 
-difficulty_levels = ["easy", "medium", "hard"]
-print("\033[32mWelcome ;D\033[0m ")
-while True:
-    input_difficulty = input("Please enter the difficulty of the game (\033[92measy,\033[93m medium,\033[91m hard\033[0m) : ").strip()
-    if input_difficulty in difficulty_levels:
-        break
-    print("Please input a valid choice!!")
+GREEN, YELLOW, RED, BLUE, RESET = "\033[32m", "\033[93m", "\033[31m", "\033[96m", "\033[0m"
+difficulty_levels = {0: 0.5, 1: 0.65, 2: 0.75}
 
-sudoku = random_board(input_difficulty)
-original_board = sudoku.copy()
+def print_colored(text, color=RESET):
+    print(f"{color}{text}{RESET}")
+
+def get_valid_input(prompt, valid_range):
+    while True:
+        try:
+            value = int(input(prompt))
+            if value in valid_range:
+                return value
+            print_colored("Invalid input! Please enter a valid number.", RED)
+        except ValueError:
+            print_colored("Invalid input! Please enter numbers only.", RED)
 
 def is_game_complete(board):
     return all(0 not in row for row in board)
-print("\n \033[96m**Game started**\033[0m \n")
-print_game(sudoku, True, "Whats your first move?", None, [[], []],original_board)
 
+print_colored("\nWelcome ;D\n", GREEN)
 
-correct_moves = 0
-wrong_moves = 0
+input_difficulty = get_valid_input(f"Choose difficulty ({GREEN}easy(1), {YELLOW}medium(2), {RED}hard(3){RESET}): ", range(1, 4)) - 1
+sudoku = generate_sudoku(difficulty_levels[input_difficulty])
+original_sudoku = copy.deepcopy(sudoku)
+
+print_colored("\n   **Game started**", BLUE)
+print_game(sudoku, True, "What's your first move?", None, [[], []], original_sudoku)
+
+correct_moves, wrong_moves = 0, 0
 start_time = time.time()
 move_saving = []
 
 while not is_game_complete(sudoku):
-    try:
-        row = int(input("Row \033[93m(1 to 9)\033[0m: ")) - 1
-        col = int(input("Column \033[93m(1 to 9)\033[0m: ")) - 1
-        num = int(input("Number \033[93m(1 to 9)\033[0m: "))
+    row = get_valid_input(f"Row {YELLOW}(1-9){RESET}: ", range(1, 10)) - 1
+    col = get_valid_input(f"Column {YELLOW}(1-9){RESET}: ", range(1, 10)) - 1
+    num = get_valid_input(f"Number {YELLOW}(1-9, 0 to reset){RESET}: ", range(0, 10))
 
-        if not (0 <= row < 9 and 0 <= col < 9 and 0 <= num <= 9):
-            print("Please enter a valid number: ")
-            continue
-
-        if original_board[row][col] != 0:
-            print("You cannot change this value; it's from the base board!!")
-            continue
-
-        if num == 0:
-            if sudoku[row][col] == 0:
-                print("This box is already empty!!")
-            else:
-                sudoku[row][col] = 0
-                print("This box has been cleared")
-
+    if num == 0:
+        if original_sudoku[row][col] == 0:
+            sudoku[row][col] = 0
+            print_game(sudoku, True, "The value has been reset to default!", [row, col, num], [[], []], original_sudoku)
         else:
-            result = check_game(sudoku, [row, col, num])
-            flag, message = result[1], result[2]
-            if flag:
-                sudoku[row][col] = num
-                correct_moves += 1
-            else:
-                wrong_moves += 1
+            print_game(sudoku, False, "You cannot change this value! It's from the base board!!", [row, col, num], [[], []], original_sudoku)
+        continue
 
-            move_saving.append([row, col])
-            print_game(sudoku, flag, message, [row, col, num], result[4],original_board)
+    result = check_game(sudoku, [row, col, num])
+    flag, message = result[1], result[2]
 
-    except ValueError:
-        print("Please just enter numbers")
+    if flag:
+        sudoku[row][col] = num
+        correct_moves += 1
+    else:
+        wrong_moves += 1
 
-end_time = time.time()
-total_time = round(end_time - start_time, 2)
+    move_saving.append([row, col])
+    print_game(sudoku, flag, message, [row, col, num], result[4], original_sudoku)
 
-print(f"Correct moves: {correct_moves}")
-print(f"Wrong moves: {wrong_moves}")
-print(f"Gaming time: {total_time} sec")
+total_time = round(time.time() - start_time, 2)
+
+print(f"Correct moves: {correct_moves}\nWrong moves: {wrong_moves}\nGaming time: {total_time} sec")
