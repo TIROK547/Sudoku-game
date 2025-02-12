@@ -1,0 +1,38 @@
+# Sudoku Game
+
+## Overview
+
+This is a command-line Sudoku game where players can select a difficulty level and attempt to solve the generated puzzle. The game ensures valid moves and provides feedback on each move.
+
+## Features
+
+- Selectable difficulty levels (Easy, Medium, Hard)
+- Validity checking for each move
+- Color-coded terminal output for better readability
+- Displays the Sudoku grid dynamically
+
+## Installation
+
+To run the game, ensure you have Python installed on your system. You will also need the `sudoku` package.
+
+```bash
+pip install sudoku
+```
+
+## How to Play
+
+1. Run the script:
+   ```bash
+   python main.py
+   ```
+2. Select a difficulty level when prompted.
+3. Enter row, column, and number values to place numbers on the board.
+4. The game will validate your moves and provide feedback.
+5. Continue playing until the board is complete.
+
+## Files Description
+
+- `main.py` - The main game loop that handles user interaction and gameplay.
+- `check.py` - Contains logic to validate player moves.
+- `print.py` - Handles board display with color-coded output.
+- `api.py` - Generates Sudoku puzzles based on difficulty.
