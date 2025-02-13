@@ -7,15 +7,16 @@ def print_game(game_board, game_case, message, user_choice, inflicted_loc, origi
     row, col, num = user_choice if user_choice else (-1, -1, -1)
 
     print(f"{BLUE}------{RED}#{BLUE}SUD-OKU{RED}#{BLUE}------{RESET}")
-
+    #looping the game to display it
     for i in range(9):
         if i % 3 == 0 and i != 0:
             print(f"{BLUE}------#-------#------{RESET}")
-
+        #print game boarders
         for j in range(9):
             if j % 3 == 0 and j != 0:
                 print(f"{BLUE}|{RESET}", end=" ")
-
+                
+        #check if the num is valid or not and print it
             if [i, j] in inflicted_loc and game_board[i][j] != 0:
                 print(f"{RED}{game_board[i][j]}{RESET}", end=" ")
             elif i == row and j == col and not game_case:
@@ -27,6 +28,6 @@ def print_game(game_board, game_case, message, user_choice, inflicted_loc, origi
         print()
 
     print(f"{BLUE}------{RED}*{BLUE}-------{RED}*{BLUE}------{RESET}")
-
+    #print the final message(if the num is valid)
     msg_color = BLUE if game_case or game_case is None else RED
     print(f"\n{msg_color}{message}{RESET}\n")

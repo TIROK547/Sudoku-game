@@ -3,13 +3,15 @@ from check import check_game
 from api import generate_sudoku
 import copy
 import time
-
+#using the colors as vars
 GREEN, YELLOW, RED, BLUE, RESET = "\033[32m", "\033[93m", "\033[31m", "\033[96m", "\033[0m"
 difficulty_levels = {0: 0.4, 1: 0.55, 2: 0.75}
 
+#printing the messages
 def print_colored(text, color=RESET):
     print(f"{color}{text}{RESET}")
 
+#check to see if the input is valid or not
 def get_valid_input(prompt, valid_range):
     while True:
         try:
@@ -20,11 +22,12 @@ def get_valid_input(prompt, valid_range):
         except ValueError:
             print_colored("❌ Invalid input! Please enter numbers only.", RED)
 
+#check to see if the game is finished
 def is_game_complete(board):
     return all(0 not in row for row in board)
 
 print_colored("\n Welcome to Sudoku! 🎮\n", GREEN)
-
+#gets the difficulty from user
 input_difficulty = get_valid_input(f"🎯 Choose difficulty {GREEN}Easy(1) {YELLOW}Medium(2) {RED}Hard(3){RESET}: ", range(1, 4)) - 1
 sudoku = generate_sudoku(difficulty_levels[input_difficulty])
 original_sudoku = copy.deepcopy(sudoku)
@@ -36,6 +39,7 @@ correct_moves, wrong_moves = 0, 0
 start_time = time.time()
 move_saving = []
 
+#while the game is not finished
 while not is_game_complete(sudoku):
     row = get_valid_input(f"📌 Row {YELLOW}(1-9){RESET}: ", range(1, 10)) - 1
     col = get_valid_input(f"📌 Column {YELLOW}(1-9){RESET}: ", range(1, 10)) - 1

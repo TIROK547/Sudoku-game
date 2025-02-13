@@ -1,4 +1,5 @@
 from sudoku import Sudoku
+#imports the game array from the api
 def generate_sudoku(difficulty):
     sudoku = Sudoku(3).difficulty(difficulty).board
     new_sudoku = []
